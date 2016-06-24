@@ -8,7 +8,7 @@ var buffer = require('gulp-buffer');
 var uglify = require('gulp-uglify');
 var gulpif = require('gulp-if');
 var exorcist = require('exorcist');
-var babelify = require('babelify');
+var tsify = require('tsify');
 var browserify = require('browserify');
 var browserSync = require('browser-sync');
 
@@ -20,7 +20,7 @@ var BUILD_PATH = './build';
 var SCRIPTS_PATH = BUILD_PATH + '/scripts';
 var SOURCE_PATH = './src';
 var STATIC_PATH = './static';
-var ENTRY_FILE = SOURCE_PATH + '/index.js';
+var ENTRY_FILE = SOURCE_PATH + '/index.ts';
 var OUTPUT_FILE = 'game.js';
 
 var keepFiles = false;
@@ -108,7 +108,7 @@ function build() {
         entries: ENTRY_FILE,
         debug: true
     })
-    .transform(babelify)
+    .plugin('tsify', {target: 'ES6'})
     .bundle().on('error', function(error){
           gutil.log(gutil.colors.red('[Build Error]', error.message));
           this.emit('end');

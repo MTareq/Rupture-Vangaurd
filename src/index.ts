@@ -1,4 +1,5 @@
-import GameState from 'states/GameState';
+/// <reference path="../node_modules/phaser/typescript/phaser.d.ts"/>
+import GameState from './states/GameState';
 
 class Game extends Phaser.Game {
 
