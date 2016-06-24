@@ -108,7 +108,7 @@ function build() {
         entries: ENTRY_FILE,
         debug: true
     })
-    .plugin('tsify', {target: 'ES6'})
+    .plugin('tsify', {target: 'ES5'})
     .bundle().on('error', function(error){
           gutil.log(gutil.colors.red('[Build Error]', error.message));
           this.emit('end');
