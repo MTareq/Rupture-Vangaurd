@@ -1,5 +1,5 @@
 /// <reference path="../../references.ts"/>
-class BasicSub extends Phaser.Sprite{
+class BasicShip extends Phaser.Sprite{
     startX: number;
     startY: number;
     acceleration: number;
@@ -19,4 +19,4 @@ class BasicSub extends Phaser.Sprite{
     };
 
 }
-export default BasicSub;
+export default BasicShip;

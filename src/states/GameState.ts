@@ -1,5 +1,6 @@
 /// <reference path="../../references.ts"/>
-import BasicSub from '../objects/Ships.ts'
+import BasicShip from '../objects/Ships.ts'
+import InputHandler from '../objects/InputHandler.ts'
 
 const gfxAssets = {
     sub: {URL: 'assets/base-sub.png', name: 'sub'},
@@ -8,17 +9,23 @@ const gfxAssets = {
 
 class GameState extends Phaser.State {
 
+    playerShip: BasicShip;
+    playerInputHandler: InputHandler;
+
     preload() {
         this.load.image(gfxAssets.sub.name, gfxAssets.sub.URL);
     }
 	create() {
 		let center = { x: this.game.world.centerX, y: this.game.world.centerY }
-		let sub = new BasicSub(this.game, center.x, center.y, 'sub', null);
+        this.playerInputHandler = new InputHandler(this.game);
+		this.playerShip = new BasicShip(this.game, center.x, center.y, 'sub', null);
         let debug = new Phaser.Utils.Debug(this.game)
-		sub.anchor.set(0.5, 0.5);
+		this.playerShip.anchor.set(0.5, 0.5);
         //TODO control, events, movment handler
 	}
     update(){
+        let command = this.playerInputHandler.handleInput();
+        if(command){ command.execute(this.playerShip) }
     }
 
 }
