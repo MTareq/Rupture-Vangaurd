@@ -1,4 +1,4 @@
-/// <reference path="../../node_modules/phaser/typescript/phaser.d.ts"/>
+/// <reference path="../../references.ts"/>
 import BasicSub from '../objects/entity.ts'
 
 const gfxAssets = {
