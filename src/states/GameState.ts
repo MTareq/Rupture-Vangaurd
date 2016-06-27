@@ -1,5 +1,5 @@
 /// <reference path="../../references.ts"/>
-import BasicSub from '../objects/entity.ts'
+import BasicSub from '../objects/Ships.ts'
 
 const gfxAssets = {
     sub: {URL: 'assets/base-sub.png', name: 'sub'},
