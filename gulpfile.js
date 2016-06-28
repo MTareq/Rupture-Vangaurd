@@ -137,7 +137,7 @@ function serve() {
     browserSync(options);
     
     // Watches for changes in files inside the './src' folder.
-    gulp.watch(SOURCE_PATH + '/**/*.js', ['watch-js']);
+    gulp.watch(SOURCE_PATH + '/**/*.ts', ['watch-ts']);
     
     // Watches for changes in files inside the './static' folder. Also sets 'keepFiles' to true (see cleanBuild()).
     gulp.watch(STATIC_PATH + '/**/*', ['watch-static']).on('change', function() {
@@ -153,7 +153,7 @@ gulp.task('copyPhaser', ['copyStatic'], copyPhaser);
 gulp.task('build', ['copyPhaser'], build);
 gulp.task('fastBuild', build);
 gulp.task('serve', ['build'], serve);
-gulp.task('watch-js', ['fastBuild'], browserSync.reload); // Rebuilds and reloads the project when executed.
+gulp.task('watch-ts', ['fastBuild'], browserSync.reload); // Rebuilds and reloads the project when executed.
 gulp.task('watch-static', ['copyPhaser'], browserSync.reload);
 
 /**
