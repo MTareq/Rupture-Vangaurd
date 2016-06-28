@@ -21,7 +21,6 @@ class GameState extends Phaser.State {
 		this.playerShip = new BasicShip(this.game, center.x, center.y, 'sub', null);
         let debug = new Phaser.Utils.Debug(this.game)
 		this.playerShip.anchor.set(0.5, 0.5);
-        //TODO control, events, movment handler
 	}
     update(){
         let command = this.playerInputHandler.handleInput();
