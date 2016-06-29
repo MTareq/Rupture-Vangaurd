@@ -15,6 +15,11 @@ class BasicShip extends Phaser.Sprite{
         this.drag = 100;
         this.maxVelocity = 300;
         this.angularVelocity = 200;
+        this.anchor.set(0.5, 0.5);
+        this.angle = -90;
+        game.physics.enable(this, Phaser.Physics.ARCADE);
+        this.body.drag.set(this.drag);
+        this.body.maxVelocity.set(this.maxVelocity);
 		game.stage.addChild(this);
     };
 

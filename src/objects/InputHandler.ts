@@ -1,26 +1,36 @@
 ///<reference="../../references.ts">
 import BasicShip from './Ships.ts';
 class Command {
-    execute(playerShip: BasicShip){};
+    execute(playerShip: BasicShip, phys?: Phaser.Physics.Arcade){};
 };
 
 class ThrustCmd extends Command{
-    execute(PlayerShip: BasicShip){
-        console.log('ahead');
+    execute(playerShip: BasicShip, phys: Phaser.Physics.Arcade){
+        phys.accelerationFromRotation(playerShip.rotation, playerShip.acceleration, playerShip.body.acceleration);
     }
 }
 class TurnRightCmd extends Command{
-    execute(PlayerShip: BasicShip){
-        console.log('right');
+    execute(playerShip: BasicShip){
+        playerShip.body.angularVelocity = playerShip.angularVelocity;
     }
 }
 class TurnLeftCmd extends Command{
-    execute(PlayerShip: BasicShip){
-        console.log('left');
+    execute(playerShip: BasicShip){
+        playerShip.body.angularVelocity = -playerShip.angularVelocity;
+    }
+}
+class StopTurnCmd extends Command{
+    execute(playerShip: BasicShip){
+        playerShip.body.angularVelocity = 0;
+    }
+}
+class DeaccelerateCmd extends Command{
+    execute(playerShip: BasicShip){
+        playerShip.body.acceleration.set(0);
     }
 }
 class FireCmd extends Command{
-    execute(PlayerShip: BasicShip){
+    execute(playerShip: BasicShip){
         console.log('fire fire');
     }
 }
@@ -29,6 +39,8 @@ class InputHandler {
     private Thrust: Command;
     private TurnRight: Command;
     private TurnLeft: Command;
+    private StopTurn: Command;
+    private deaccelerate: Command;
     private Fire: Command;
     private KeyUp;
     private KeyDown;
@@ -43,12 +55,17 @@ class InputHandler {
         this.Fire = new FireCmd();
         this.TurnRight = new TurnRightCmd();
         this.TurnLeft = new TurnLeftCmd();
+        this.StopTurn = new StopTurnCmd();
+        this.deaccelerate = new DeaccelerateCmd();
     }
     handleInput(){
         if(this.KeyUp.isDown){ return this.Thrust }
         else if(this.KeyDown.isDown){ return this.Fire }
         else if(this.KeyRight.isDown){ return this.TurnRight }
         else if(this.KeyLeft.isDown){ return this.TurnLeft }
+        else if(this.KeyUp.justUp){ return this.deaccelerate }
+        else if(this.KeyRight.justUp){ return this.StopTurn }
+        else if(this.KeyLeft.justUp){ return this.StopTurn }
         else { return null };
     }
 };
